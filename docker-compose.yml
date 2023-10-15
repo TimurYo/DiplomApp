@@ -4,8 +4,6 @@ services:
     image: mysql:latest
     ports:
       - '3306:3306'
-    volumes:
-      - ./data:/var/lib/mysql/data
     environment:
       - MYSQL_RANDOM_ROOT-PASSWORD=yes
       - MYSQL_DATABASE=db
@@ -16,21 +14,13 @@ services:
     image: postgres:13-alpine
     ports:
       - '5432:5432'
-    volumes:
-      - ./data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=app
       - POSTGRES_USER=app
       - POSTGRES_PASSWORD=9mREsvXDs9Gk89Efg
 
   gate-simulator:
-        image: node:latest
-        user: "gate-simulator:1.0.0"
-        working_dir: /home/node/app
-        environment:
-          - NODE_ENV=production
-        volumes:
-          - ./:/home/node/app
-        expose:
-          - "9999"
-        command: "npm start"
+      build: gate-simulator
+      image: node-app:1.0
+      ports:
+        - '9999:9999'

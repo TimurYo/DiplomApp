@@ -1,13 +1,6 @@
-FROM node:latest
-
-WORKDIR /home/node/app
-
-COPY package.json package.json
-COPY package-lock.json package-lock.json
-
-RUN npm install
-
+FROM node:lts-alpine3.12
+WORKDIR /opt/app
 COPY . .
-
-CMD ["node", "server.js"]
+RUN npm install
+CMD ["npm", "start"]
 EXPOSE 9999
